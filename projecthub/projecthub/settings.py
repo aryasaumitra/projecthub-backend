@@ -60,7 +60,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'projecthub.urls'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React default
+    "http://localhost:5174",  # Vite React default
 ]
 
 CORS_ALLOW_METHODS = [
