@@ -40,6 +40,11 @@ class RegisterView(APIView):
 class IsAdminOrReadOnly(IsAuthenticated):
     def has_permission(self, request, view):
         return super().has_permission(request, view) and (request.user.is_staff or request.method in ['GET'])
+    
+class IsUser(IsAuthenticated):
+    def has_permission(self, request, view):
+        return super().has_permission(request, view) or request.method in ['GET']
+    
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -51,7 +56,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     pagination_class = PageNumberPagination
 
 class TaskViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsUser]
     serializer_class = TaskSerializer
     queryset = Task.objects.all()
     filter_backends = [filters.SearchFilter]
